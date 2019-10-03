@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * 
- * @author MANSI AGARWAL
+ * @author Mayank Dixit
  * Question :https://www.hackerrank.com/challenges/bfsshortreach/problem 
  */
 public class BfsShortestReach {
@@ -29,38 +29,46 @@ public class BfsShortestReach {
 		sc.close();
 	}
 
-	static void bfs(int s, ArrayList<ArrayList<Integer>> adj, int n) {
-		boolean[] vis = new boolean[n + 1];
-		vis[s] = true;
-		int[] dist = new int[n + 1];
-		Arrays.fill(dist, -1);
-		dist[s] = 0;
-		Deque<Integer> q = new ArrayDeque<Integer>();
-		q.add(s);
-		while (q.size() > 0) {
-			int curr = q.peek();
-			Iterator<Integer> it = adj.get(curr).iterator();
-			while (it.hasNext()) {
-				int temp = it.next();
-				if (!vis[temp]) {
-					dist[temp] = dist[curr] + 1;
-					q.add(temp);
-					vis[temp] = true;
-				}
-			}
-			for (int l = 0; l < dist.length; l++) {
-				System.out.println(dist[l]);
-			}
-			q.remove();
-		}
-		System.out.println("final");
-		for (int l = 0; l < dist.length; l++) {
-			System.out.println(dist[l]);
-		}
-		for (int i = 1; i < dist.length; i++) {
-			if (i != s)
-				System.out.print(((dist[i] != -1) ? dist[i] * 6 : -1) + " ");
-		}
-		System.out.println();
-	}
-}
+class Graph 
+{ 
+	private int V; // No. of vertices 
+	private LinkedList<Integer> adj[]; //Adjacency Lists 
+
+	// Constructor 
+	Graph(int v) 
+	{ 
+		V = v; 
+		adj = new LinkedList[v]; 
+		for (int i=0; i<v; ++i) 
+			adj[i] = new LinkedList(); 
+	} 
+
+	void addEdge(int v,int w) 
+	{ 
+		adj[v].add(w); 
+	} 
+
+	void BFS(int s) 
+	{ 
+		boolean visited[] = new boolean[V]; 
+		LinkedList<Integer> queue = new LinkedList<Integer>(); 
+		visited[s]=true; 
+		queue.add(s); 
+
+		while (queue.size() != 0) 
+		{ 
+			s = queue.poll(); 
+			System.out.print(s+" "); 
+			Iterator<Integer> i = adj[s].listIterator(); 
+			while (i.hasNext()) 
+			{ 
+				int n = i.next(); 
+				if (!visited[n]) 
+				{ 
+					visited[n] = true; 
+					queue.add(n); 
+				} 
+			} 
+		} 
+	} 
+} 
